@@ -2,8 +2,9 @@
 // where your node app starts
 
 // init project
-var express = require('express');
-var app = express();
+const express = require('express'),
+      app = express(),
+      moment = require('moment');
 
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
@@ -18,8 +19,10 @@ app.get("/", function (request, response) {
 });
 
 app.get("/:timestamp", function (request, response) {
-  const timestamp = request.params.timestamp;
-  console.log('timestamp: ' + timestamp);
+  const timestamp = request.params.timestamp,
+        isValid = moment(timestamp);
+  
+  console.log('isValid: ' + isValid);
   
 });
 
