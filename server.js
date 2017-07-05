@@ -25,8 +25,9 @@ app.get("/:timestamp", function (request, response) {
   if (isNum) {
     const naturalDate = moment.unix(timestamp).format("MMMM D, YYYY");
     response.end(respond(timestamp, naturalDate));
-  } else {
-    moment()
+  } else if (moment(timestamp, "MMMM D, YYYY").isValid()) {
+    const unixDate = moment(timestamp, "MMMM D, YYYY").unix();
+    response.end(respond(unixDate, timestamp));
   }
   
 });
