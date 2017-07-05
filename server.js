@@ -20,9 +20,14 @@ app.get("/", function (request, response) {
 
 app.get("/:timestamp", function (request, response) {
   const timestamp = request.params.timestamp,
-        isValid = moment(timestamp);
+        isNum = /^\d+$/.test(timestamp);
   
-  console.log('isValid: ' + isValid);
+  if (isNum) {
+    const naturalDate = moment.unix(timestamp).format("MMMM D, YYYY");
+    response.end(respond(timestamp, naturalDate));
+  } else {
+    moment()
+  }
   
 });
 
@@ -30,3 +35,10 @@ app.get("/:timestamp", function (request, response) {
 var listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
+
+function respond(unix, natural) {
+  return JSON.stringify({
+    unix: unix,
+    natural: natural
+  });
+}
